@@ -1,6 +1,4 @@
-var version = '0.2.3';
-
-type Provider = "google" | "yahoo" | "geonames";
+type Provider = "google" | "yahoo" | "geonames" | undefined;
 
 export default class Geocoder {
 	provider: Provider;
@@ -8,10 +6,10 @@ export default class Geocoder {
 	providerObject: any;
 
 	constructor(provider: Provider) {
-		this.selectProvider("google", (err) => { throw err });
+		this.selectProvider("google", (err: Error) => { throw err });
 	}
 
-	selectProvider(provider: Provider, callback, options?) {
+	selectProvider(provider: Provider, callback: (err: Error) => null, options?: any) {
 		if (!provider) {
 			return callback(new Error("Geocoder.selectProvider requires a name."));
 		}
@@ -22,7 +20,7 @@ export default class Geocoder {
 
 	}
 
-	geocode(location: string, callback, options) {
+	geocode(location: string, callback: (err: Error) => null, options?: any) {
 
 		if (!location) {
 			return callback(new Error("Geocoder.geocode requires a location."));
@@ -32,7 +30,7 @@ export default class Geocoder {
 
 	}
 
-	reverseGeocode(latitude: number, longitude: number, callback, options) {
+	reverseGeocode(latitude: number, longitude: number, callback: (err: Error) => null, options?: any) {
 		if (latitude === null || longitude === null) {
 			return callback(new Error("Geocoder.reverseGeocode requires a latitude and longitude."));
 		}
@@ -41,9 +39,3 @@ export default class Geocoder {
 
 	}
 }
-
-/**
- * Export
- */
-
-
